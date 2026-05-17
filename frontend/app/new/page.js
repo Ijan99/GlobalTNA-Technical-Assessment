@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 export default function NewJob() {
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
+
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -22,22 +24,84 @@ export default function NewJob() {
 
   const submit = async (e) => {
     e.preventDefault();
-    await API.post("/jobs", form);
-    router.push("/");
+
+    try {
+      setLoading(true);
+      await API.post("/jobs", form);
+      router.push("/");
+    } catch (error) {
+      alert("Failed to create job");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <form onSubmit={submit} className="p-6 space-y-3">
-      <input name="title" placeholder="Title" onChange={handleChange} className="border p-2 w-full" />
-      <textarea name="description" placeholder="Description" onChange={handleChange} className="border p-2 w-full" />
-      <input name="category" placeholder="Category" onChange={handleChange} className="border p-2 w-full" />
-      <input name="location" placeholder="Location" onChange={handleChange} className="border p-2 w-full" />
-      <input name="contactName" placeholder="Name" onChange={handleChange} className="border p-2 w-full" />
-      <input name="contactEmail" placeholder="Email" onChange={handleChange} className="border p-2 w-full" />
+    <div className="max-w-2xl mx-auto mt-8 text-gray-600">
+      
+      <div className="bg-white p-6 rounded-xl shadow-md text-gray-600">
+        
+        <h1 className="text-2xl font-bold mb-6 text-gray-600">
+          Create New Service Request
+        </h1>
 
-      <button className="bg-green-500 text-white p-2">
-        Create Job
-      </button>
-    </form>
+        <form onSubmit={submit} className="space-y-4">
+
+          <input
+            name="title"
+            placeholder="Job Title (e.g. Need plumber for leaking tap)"
+            onChange={handleChange}
+            className="border p-3 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          />
+
+          <textarea
+            name="description"
+            placeholder="Describe the issue in detail"
+            onChange={handleChange}
+            className="border p-3 w-full rounded-lg h-28 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          />
+
+          <input
+            name="category"
+            placeholder="Category (Plumbing, Electrical, etc.)"
+            onChange={handleChange}
+            className="border p-3 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+
+          <input
+            name="location"
+            placeholder="Location (e.g. Colombo, Maharagama)"
+            onChange={handleChange}
+            className="border p-3 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+
+          <input
+            name="contactName"
+            placeholder="Your Name"
+            onChange={handleChange}
+            className="border p-3 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+
+          <input
+            name="contactEmail"
+            placeholder="Your Email"
+            type="email"
+            onChange={handleChange}
+            className="border p-3 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-blue-600 text-white px-4 py-3 rounded-lg w-full hover:bg-blue-700 transition disabled:opacity-50"
+          >
+            {loading ? "Creating..." : "Create Job Request"}
+          </button>
+
+        </form>
+      </div>
+    </div>
   );
 }

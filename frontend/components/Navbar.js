@@ -2,21 +2,37 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="border-b p-4 flex justify-between items-center">
-      
-      {/* Left side - Logo / Title */}
-      <Link href="/" className="font-bold text-lg">
-        Service Board
-      </Link>
+    <nav className="bg-white border-b shadow-sm sticky top-0 z-50">
+      <div className="max-w-5xl mx-auto flex justify-between items-center p-4">
 
-      {/* Right side - Button */}
-      <Link
-        href="/new"
-        className="bg-blue-500 text-white px-3 py-1 rounded"
-      >
-        + New Request
-      </Link>
+        {/* Logo / Brand */}
+        <Link
+          href="/"
+          className="text-xl font-bold text-gray-800 hover:text-blue-600 transition"
+        >
+          GlobalTNA <span className="text-blue-600">Mini Service Request Board</span>
+        </Link>
 
-    </div>
+        {/* Navigation Actions */}
+        <div className="flex items-center gap-3">
+
+          <Link
+            href="/"
+            className="text-sm text-gray-600 hover:text-blue-600 transition"
+          >
+            Home
+          </Link>
+
+          <Link
+            href="/new"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition shadow-sm"
+          >
+            + New Request
+          </Link>
+
+        </div>
+
+      </div>
+    </nav>
   );
 }

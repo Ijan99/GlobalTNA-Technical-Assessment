@@ -21,17 +21,22 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-gray-50">
+      <body className="bg-gray-100 text-gray-900">
         
-        {/* Navbar added here (IMPORTANT) */}
+        {/* Navbar */}
         <Navbar />
 
-        {/* Page content */}
-        <main className="flex-1">
+        {/* Main Content Wrapper */}
+        <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-6">
           {children}
         </main>
+
+        {/* Optional Footer (clean touch) */}
+        <footer className="text-center text-sm text-gray-400 py-4 border-t">
+          © {new Date().getFullYear()} Service Request Board | Developed by Ijan Panditharathne
+        </footer>
 
       </body>
     </html>
